@@ -1,1 +1,1 @@
-web: java -cp $JAVA_OPTS target/classes:target/dependency/* edu.eci.arep.CalculatorWebApp.WebApp.App
+web: java $JAVA_OPTS -cp target/classes:target/dependency/* edu.eci.arep.CalculatorWebApp.WebApp.App
