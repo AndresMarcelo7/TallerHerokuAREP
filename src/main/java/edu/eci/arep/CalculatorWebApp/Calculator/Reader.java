@@ -4,13 +4,24 @@ import edu.eci.arep.CalculatorWebApp.DataStructure.LinkedList;
 
 import java.util.regex.Pattern;
 
+
+/**
+ * The type Reader.
+ */
 public class Reader {
+
+    /**
+     * Instantiates a new Reader.
+     */
     public Reader() {
     }
 
     /**
-     * The entry point of application.
+     * Entry point of the application, takes a string with Doubles separated by comma
+     * and calculates mean an standard deviation
      *
+     * @param data the data
+     * @return the string [ ]
      */
     public String[] readAndReturn(String data) {
         return CalculateData(data);
