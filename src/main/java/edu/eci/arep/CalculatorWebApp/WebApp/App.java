@@ -1,5 +1,6 @@
 package edu.eci.arep.CalculatorWebApp.WebApp;
 
+import edu.eci.arep.CalculatorWebApp.Calculator.Reader;
 import spark.Request;
 import spark.Response;
 import static spark.Spark.*;
@@ -26,13 +27,10 @@ public class App {
                 = "<!DOCTYPE html>"
                 + "<html>"
                 + "<body>"
-                + "<h2>HTML Forms</h2>"
+                + "<h2>AREP Mean and Standard deviation Calculator</h2>"
                 + "<form action=\"/results\">"
-                + "  First name:<br>"
-                + "  <input type=\"text\" name=\"firstname\" value=\"Mickey\">"
-                + "  <br>"
-                + "  Last name:<br>"
-                + "  <input type=\"text\" name=\"lastname\" value=\"Mouse\">"
+                + "  Only Integers and float(.) separated by \",\" (No [space] and letters allowed):<br>"
+                + "  <input type=\"text\" name=\"data\" value=\"1.0,2,3,4,5\">"
                 + "  <br><br>"
                 + "  <input type=\"submit\" value=\"Submit\">"
                 + "</form>"
@@ -43,8 +41,26 @@ public class App {
     }
 
     private static String resultsPage(Request req, Response res) {
-        return req.queryParams("firstname") + " " +
-                req.queryParams("lastname");
+        String data = req.queryParams("data");
+        Reader r = new Reader();
+        String[] out = r.readAndReturn(data);
+        String pageContent
+                = "<!DOCTYPE html>"
+                + "<html>"
+                + "<body>"
+                + "<ul>"
+                + "<h2> Your Input</h2>"
+                + "<li>" + (out.length>1 ? out[2] : "Invalid Input") + "</li>"
+                + "<h2> Mean </h2>"
+                + "<li>" + (out.length>1 ? out[0] : "N/A") + "</li>"
+                + "<h2> Standard Deviation </h2>"
+                + "<li>" + (out.length>1 ? out[1] : "N/A") + "</li>"
+                + "<a href=\"inputdata\">Try Another set of numbers!</a>"
+                + "</ul>"
+                + "</body>"
+                + "</html>";
+
+        return pageContent;
     }
 
     /**
